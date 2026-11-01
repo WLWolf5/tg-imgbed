@@ -1,9 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
@@ -12,7 +9,6 @@ env:
 
 jobs:
   build-and-push:
-    if: github.repository == 'MarSeventh/CloudFlare-ImgBed'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

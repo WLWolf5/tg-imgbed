@@ -1,15 +1,13 @@
 name: Deploy to Cloudflare Workers
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       worker_name:
+        type: string
         description: 'Worker Name'
         required: false
-        default: ''
+        default: 'imgbed-worker'
 
 # 所有配置均通过 Secrets 传入（public 仓库的 Variables 对所有人可见，不安全）
 #
@@ -35,9 +33,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # 仅在 fork 仓库且配置了 Cloudflare secrets 时运行
-    # 原仓库 push 和未配置 secrets 的 fork 不会触发部署
-    if: ${{ github.event.repository.fork }}
+    # 仅在配置了 Cloudflare secrets 时运行
     steps:
       - name: Check deployment config
         id: check
